@@ -2,7 +2,7 @@
 
 ## 仓库定位
 
-`Codex-Claude-legal-cn-mcp-connectors` 是一个**独立的 MCP 连接器配置仓库**，
+`Codex-Claude-legal-CN-mcp-connectors` 是一个**独立的 MCP 连接器配置仓库**，
 不涉及 skills/ 或法律工作流内容，只负责一件事：
 
 > **向 MCP 客户端的配置文件写入中国法律检索连接器的配置**
@@ -69,4 +69,5 @@ update.ps1
   ├── @pkulaw/mcp-cli（npm）    ← 北大法宝 MCP 命令行工具（MIT）
   └── Node.js >= 18             ← chineselaw 运行时
 ```
+
 

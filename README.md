@@ -18,16 +18,16 @@
 ### Windows (PowerShell)
 
 ```powershell
-git clone https://github.com/laubeing-droid/Codex-Claude-legal-cn-mcp-connectors.git
-cd Codex-Claude-legal-cn-mcp-connectors
+git clone https://github.com/laubeing-droid/Codex-Claude-legal-CN-mcp-connectors.git
+cd Codex-Claude-legal-CN-mcp-connectors
 .\install.ps1
 ```
 
 ### macOS / Linux (Bash)
 
 ```bash
-git clone https://github.com/laubeing-droid/Codex-Claude-legal-cn-mcp-connectors.git
-cd Codex-Claude-legal-cn-mcp-connectors
+git clone https://github.com/laubeing-droid/Codex-Claude-legal-CN-mcp-connectors.git
+cd Codex-Claude-legal-CN-mcp-connectors
 chmod +x install.sh && ./install.sh
 ```
 
@@ -75,7 +75,7 @@ chmod +x install.sh && ./install.sh
 | **Claude Desktop** | `%LOCALAPPDATA%\Claude\claude_desktop_config.json` (Win)<br>`~/Library/Application Support/Claude/claude_desktop_config.json` (Mac) | JSON |
 ## 已知问题与处理
 
-详见 [交接文档](https://github.com/laubeing-droid/Codex-Claude-legal-cn-mcp-connectors/blob/main/docs/connectors.md#常见问题)。
+详见 [交接文档](https://github.com/laubeing-droid/Codex-Claude-legal-CN-mcp-connectors/blob/main/docs/connectors.md#常见问题)。
 
 - **Token 占位符**：install 时如未输入凭证，会写入 `YOUR_API_KEY` / `YOUR_ACCESS_TOKEN`，运行 `update.ps1` 可检测并提示替换
 - **Token 过期**：运行 `update.ps1` 可通过 `@pkulaw/mcp-cli` 验证 Token 有效性
@@ -101,6 +101,7 @@ npm 包版本由 GitHub Actions 每周自动监控。
 MIT。上游依赖：
 - chineselaw-mcp（MIT，作者 zooges）
 - @pkulaw/mcp-cli（MIT，北大法宝官方）
+
 
 
 

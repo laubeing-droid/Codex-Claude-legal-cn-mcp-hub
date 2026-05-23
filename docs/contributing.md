@@ -3,7 +3,7 @@
 ## 仓库结构
 
 ```
-Codex-Claude-legal-cn-mcp-connectors/
+Codex-Claude-legal-CN-mcp-connectors/
   README.md                 独立说明 + 快速配置
   QUICKSTART.md             60秒快速入门
   CHANGELOG.md              版本历史
@@ -62,4 +62,5 @@ Codex-Claude-legal-cn-mcp-connectors/
 - v1.1.x：新增脚本（update.ps1, install.sh 等）
 - v1.2.x：多环境支持（detect 模块 + Claude JSON 格式）
 - 重大变更升级主版本号
+
 

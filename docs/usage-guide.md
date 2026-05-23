@@ -14,15 +14,15 @@
 ### 安装步骤
 
 ```powershell
-git clone https://github.com/laubeing-droid/Codex-Claude-legal-cn-mcp-connectors.git
-cd Codex-Claude-legal-cn-mcp-connectors
+git clone https://github.com/laubeing-droid/Codex-Claude-legal-CN-mcp-connectors.git
+cd Codex-Claude-legal-CN-mcp-connectors
 .\install.ps1
 ```
 
 macOS/Linux：
 ```bash
-git clone https://github.com/laubeing-droid/Codex-Claude-legal-cn-mcp-connectors.git
-cd Codex-Claude-legal-cn-mcp-connectors
+git clone https://github.com/laubeing-droid/Codex-Claude-legal-CN-mcp-connectors.git
+cd Codex-Claude-legal-CN-mcp-connectors
 chmod +x install.sh && ./install.sh
 ```
 
@@ -164,4 +164,5 @@ notepad "$env:USERPROFILE\.codex\config.toml"
 # Claude Code
 notepad "$env:USERPROFILE\.claude\settings.json"
 ```
+
 
