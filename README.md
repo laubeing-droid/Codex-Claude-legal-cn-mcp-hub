@@ -45,12 +45,26 @@ chmod +x install.sh && ./install.sh
 
 | 文件 | 说明 | Windows | macOS/Linux |
 |------|------|---------|-------------|
-| `detect.ps1` / `detect.sh` | 环境检测模块（自动发现 MCP 客户端） | ✅ | ✅ |
+| `detect.ps1` / `detect.sh` | 环境检测模块 | ✅ | ✅ |
 | `install.ps1` / `install.sh` | 安装 MCP 连接器（全环境写入） | ✅ | ✅ |
 | `verify.ps1` / `verify.sh` | 验证所有环境的 MCP 配置 | ✅ | ✅ |
 | `update.ps1` / `update.sh` | 自更新 + 版本检查 + Token 过期检测 | ✅ | ✅ |
-| `docs/connectors.md` | 完整配置指南（含工具列表） | — | — |
-| `.github/workflows/npm-monitor.yml` | npm 包版本监控（每周一） | — | — |
+| `uninstall.ps1` / `uninstall.sh` | 卸载 MCP 连接器配置 | ✅ | ✅ |
+
+| 文档 | 说明 |
+|------|------|
+| `QUICKSTART.md` | 60 秒快速入门 |
+| `docs/connectors.md` | 连接器配置指南（完整） |
+| `docs/usage-guide.md` | 使用指南 |
+| `docs/architecture.md` | 架构说明 |
+| `docs/troubleshooting.md` | 常见问题排查 |
+| `docs/contributing.md` | 贡献指南 |
+
+| 其他 | 说明 |
+|------|------|
+| `.github/workflows/npm-monitor.yml` | npm 包版本监控（每周一） |
+| `.gitattributes` | Git 属性配置 |
+| `CHANGELOG.md` | 版本历史 |
 
 ### 支持的环境
 
@@ -59,8 +73,6 @@ chmod +x install.sh && ./install.sh
 | **Codex Desktop** | `~/.codex/config.toml` | TOML |
 | **Claude Code** | `~/.claude/settings.json` | JSON |
 | **Claude Desktop** | `%LOCALAPPDATA%\Claude\claude_desktop_config.json` (Win)<br>`~/Library/Application Support/Claude/claude_desktop_config.json` (Mac) | JSON |
-
-安装/验证/更新脚本自动操作所有检测到的环境，无需用户手动指定。
 ## 已知问题与处理
 
 详见 [交接文档](https://github.com/laubeing-droid/codex-legal-mcp-connectors/blob/main/docs/connectors.md#常见问题)。
@@ -89,5 +101,6 @@ npm 包版本由 GitHub Actions 每周自动监控。
 MIT。上游依赖：
 - chineselaw-mcp（MIT，作者 zooges）
 - @pkulaw/mcp-cli（MIT，北大法宝官方）
+
 
 
