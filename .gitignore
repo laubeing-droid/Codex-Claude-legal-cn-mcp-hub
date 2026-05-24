@@ -13,3 +13,5 @@ Desktop.ini
 *.orig
 # Upstream check cache
 .upstream-*
+__pycache__/
+*.pyc

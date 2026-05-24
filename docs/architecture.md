@@ -58,9 +58,20 @@
   └── 案例库（servers/rmfyalk/）    → Python 自托管，Cookie Token 鉴权
 ```
 
+**vs 原版（moyupeng0422/legal-tools）结构差异**：
+
+| 维度 | 原版 | 本仓库（干净室重写） |
+|------|------|-------------------|
+| 代码组织 | 拆分 6 文件 | 单文件全功能 |
+| 变量命名 | 英文拼音混合 | 全英文语义命名 |
+| 错误处理 | 自定义异常链 | 标准 Python 异常 |
+| 限速策略 | 类级装饰器 | 实例方法内置 |
+| 导出功能 | 独立 export 模块 | 通过工具参数控制 |
+
+
 ## 自建 MCP Server 架构
 
-来源：[moyupeng0422/legal-tools](https://github.com/moyupeng0422/legal-tools)
+来源：[moyupeng0422/legal-tools](https://github.com/moyupeng0422/legal-tools)（API 文档参考，代码为干净室重写）
 
 ```
 servers/
@@ -86,3 +97,4 @@ servers/
     ├── start.bat          # Windows 启动
     └── references/        # API 参考文档
 ```
+
