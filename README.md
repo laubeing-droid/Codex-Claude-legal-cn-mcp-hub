@@ -90,3 +90,4 @@ chmod +x install.sh && ./install.sh
 MIT。上游依赖：
 - [chineselaw-mcp](https://www.npmjs.com/package/chineselaw-mcp)（MIT，作者 zooges）
 - [@pkulaw/mcp-cli](https://www.npmjs.com/package/@pkulaw/mcp-cli)（MIT，北大法宝官方）
+

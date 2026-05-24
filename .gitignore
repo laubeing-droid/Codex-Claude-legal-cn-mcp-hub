@@ -11,3 +11,5 @@ Desktop.ini
 .vscode/
 # Git
 *.orig
+# Upstream check cache
+.upstream-*

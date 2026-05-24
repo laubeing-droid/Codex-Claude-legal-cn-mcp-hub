@@ -4,6 +4,7 @@
 .DESCRIPTION
   自动检测本机安装了哪些MCP客户端环境及各自的配置路径/格式。
   返回对象包含每个环境的配置信息。
+  提供各连接器的配置模板函数。
 #>
 
 function Get-EnvironmentInfo {
@@ -18,7 +19,7 @@ function Get-EnvironmentInfo {
         ConfigPath = $codexConfig
         Format     = 'toml'
         Installed  = $codexInstalled
-        McpSection = 'mcp_servers'        # TOML: [mcp_servers.xxx]
+        McpSection = 'mcp_servers'
     }
 
     # ---- Claude Code (terminal) ----
@@ -30,7 +31,7 @@ function Get-EnvironmentInfo {
         ConfigPath = $claudeCodeConfig
         Format     = 'json'
         Installed  = $claudeCodeInstalled
-        McpSection = 'mcpServers'         # JSON: { mcpServers: { xxx: ... } }
+        McpSection = 'mcpServers'
     }
 
     # ---- Claude Desktop ----
@@ -61,7 +62,7 @@ function Write-McpToCodex {
     }
     $content = Get-Content $ConfigPath -Encoding UTF8 -Raw -ErrorAction SilentlyContinue
     if ($content -match "(?ms)^\[mcp_servers\.\Q$Section\E\]") {
-        return $false  # 已存在
+        return $false
     }
     Add-Content -Path $ConfigPath -Value "`n$TomlBlock" -Encoding UTF8
     return $true
@@ -77,7 +78,6 @@ function Write-McpToClaude {
         try { $json = Get-Content $ConfigPath -Encoding UTF8 -Raw | ConvertFrom-Json }
         catch { $json = @{} }
     }
-    # ConvertFrom-Json returns PSCustomObject, convert to hashtable for easier manipulation
     $config = @{}
     $json.PSObject.Properties | ForEach-Object { $config[$_.Name] = $_.Value }
 
@@ -89,18 +89,53 @@ function Write-McpToClaude {
     }
 
     if ($config['mcpServers'].ContainsKey($ServerId)) {
-        return $false  # 已存在
+        return $false
     }
 
     $config['mcpServers'][$ServerId] = $ServerConfig
-
-    # Write back with pretty formatting
     $jsonStr = $config | ConvertTo-Json -Depth 10
     Set-Content -Path $ConfigPath -Value $jsonStr -Encoding UTF8
     return $true
 }
 
-function Get-ChineselawStdConfig {
+# ─── 元典 (chineselaw) 配置模板 ────────────────────
+
+# 方式 A: Streamable HTTP（元典官方，推荐）
+function Get-YuandianHttpConfig {
+    param([string]$ApiKey)
+    return @(
+        @{ name='yuandian-law';      url='https://open.chineselaw.com/mcp/law/stream';     display='元典-法律法规';   desc='5 个法律工具' }
+        @{ name='yuandian-case';     url='https://open.chineselaw.com/mcp/case/stream';    display='元典-案例文书';   desc='4 个案例工具' }
+        @{ name='yuandian-company';  url='https://open.chineselaw.com/mcp/company/stream'; display='元典-企业信息';   desc='26 个企业工具' }
+    )
+}
+
+function Get-YuandianHttpToml {
+    param([string]$Name, [string]$Url, [string]$ApiKey)
+    return @"
+[mcp_servers.$Name]
+type = "http"
+url = "$Url"
+http_headers = { Authorization = "Bearer $ApiKey", Accept = "application/json, text/event-stream" }
+startup_timeout_sec = 30
+tool_timeout_sec = 600
+enabled = true
+"@
+}
+
+function Get-YuandianHttpJson {
+    param([string]$Name, [string]$Url, [string]$ApiKey)
+    return @{
+        url     = $Url
+        headers = @{
+            Authorization = "Bearer $ApiKey"
+            Accept        = "application/json, text/event-stream"
+        }
+    }
+}
+
+# 方式 B: stdio（社区 npm 包 chineselaw-mcp，备选）
+function Get-YuandianStdConfig {
     param([string]$ApiKey)
     return @{
         command = 'npx'
@@ -108,6 +143,38 @@ function Get-ChineselawStdConfig {
         env     = @{ CHINESELAW_API_KEY = $ApiKey }
     }
 }
+
+# ─── 飞书 (larksuite) 配置模板 ─────────────────────
+
+function Get-FeishuConfig {
+    param([string]$AppId, [string]$AppSecret)
+    return @{
+        command = 'npx'
+        args    = @('-y', '@larksuiteoapi/lark-mcp')
+        env     = @{
+            LARK_APP_ID     = $AppId
+            LARK_APP_SECRET = $AppSecret
+        }
+    }
+}
+
+function Get-FeishuToml {
+    param([string]$AppId, [string]$AppSecret)
+    return @"
+[mcp_servers.feishu]
+command = "npx"
+args = ["-y", "@larksuiteoapi/lark-mcp"]
+startup_timeout_sec = 30
+tool_timeout_sec = 600
+enabled = true
+
+[mcp_servers.feishu.env]
+LARK_APP_ID = "$AppId"
+LARK_APP_SECRET = "$AppSecret"
+"@
+}
+
+# ─── 北大法宝 (pkulaw) 配置模板 ────────────────────
 
 function Get-PkulawHttpConfig {
     param([string]$Url, [string]$Token)
@@ -117,5 +184,62 @@ function Get-PkulawHttpConfig {
     }
 }
 
+
+# ─── 自建 Python MCP 配置模板 ─────────────────────
+
+function Get-SelfHostedRmfyalkConfig {
+    param([string]$Token, [string]$ExeDir)
+    if ([string]::IsNullOrEmpty($ExeDir)) { $ExeDir = (Get-ItemProperty -Path "HKLM:\Software\Python\PythonCore\3*" -Name InstallPath -ErrorAction SilentlyContinue).InstallPath }
+    return @{
+        command = if ($ExeDir) { "$ExeDir\python.exe" } else { 'python' }
+        args    = @("$PSScriptRoot\servers\rmfyalk\scripts\server.py")
+        env     = @{ RMFYALK_TOKEN = $Token }
+    }
+}
+
+function Get-SelfHostedRmfyalkToml {
+    param([string]$Token)
+    $scriptPath = "servers/rmfyalk/scripts/server.py".Replace('\', '/')
+    $repoRoot = $PSScriptRoot.Replace('\', '/')
+    return @"
+[mcp_servers.rmfyalk]
+command = "python"
+args = ["$repoRoot/$scriptPath"]
+startup_timeout_sec = 30
+tool_timeout_sec = 600
+enabled = true
+
+[mcp_servers.rmfyalk.env]
+RMFYALK_TOKEN = "$Token"
+"@
+}
+
+function Get-SelfHostedFlkNpcConfig {
+    param([string]$ExeDir)
+    if ([string]::IsNullOrEmpty($ExeDir)) { $ExeDir = (Get-ItemProperty -Path "HKLM:\Software\Python\PythonCore\3*" -Name InstallPath -ErrorAction SilentlyContinue).InstallPath }
+    return @{
+        command = if ($ExeDir) { "$ExeDir\python.exe" } else { 'python' }
+        args    = @("$PSScriptRoot\servers\flk-npc\scripts\server.py")
+    }
+}
+
+function Get-SelfHostedFlkNpcToml {
+    $scriptPath = "servers/flk-npc/scripts/server.py".Replace('\', '/')
+    $repoRoot = $PSScriptRoot.Replace('\', '/')
+    return @"
+[mcp_servers.flk-npc]
+command = "python"
+args = ["$repoRoot/$scriptPath"]
+startup_timeout_sec = 30
+tool_timeout_sec = 600
+enabled = true
+"@
+}
+
 Export-ModuleMember -Function Get-EnvironmentInfo, Write-McpToCodex, Write-McpToClaude,
-    Get-ChineselawStdConfig, Get-PkulawHttpConfig
+    Get-YuandianHttpConfig, Get-YuandianHttpToml, Get-YuandianHttpJson, Get-YuandianStdConfig,
+    Get-FeishuConfig, Get-FeishuToml,
+    Get-PkulawHttpConfig,
+    Get-SelfHostedRmfyalkConfig, Get-SelfHostedRmfyalkToml,
+    Get-SelfHostedFlkNpcConfig, Get-SelfHostedFlkNpcToml
+
