@@ -1,4 +1,10 @@
-﻿# 更新日志
+﻿
+## v3.1.0 (2026-05-25)
+
+- 模块化连接器: connectors/ 目录，self-hosted/yuandian/pkulaw/feishu 独立脚本
+- -Quick 静默模式: 供 main/judgment-predictor 作为依赖调用
+- 五仓 README 统一重写
+# 更新日志
 
 ## v3.0.0（2026-05-25）
 
