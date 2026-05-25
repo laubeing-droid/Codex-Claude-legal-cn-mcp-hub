@@ -1,4 +1,10 @@
-﻿# 快速入门
+﻿<!--
+version: 3.0.1
+module: mcp-hub
+status: active
+-->
+
+# 快速入门
 
 ## 安装
 

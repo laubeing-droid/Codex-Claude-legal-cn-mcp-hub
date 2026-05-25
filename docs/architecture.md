@@ -1,4 +1,10 @@
-﻿# 架构说明
+﻿<!--
+version: 3.0.1
+module: docs
+status: active
+-->
+
+# 架构说明
 
 ## 定位
 

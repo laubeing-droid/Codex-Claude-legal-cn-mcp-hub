@@ -1,4 +1,10 @@
-﻿# MCP 连接器配置参考
+﻿<!--
+version: 3.0.1
+module: docs
+status: active
+-->
+
+# MCP 连接器配置参考
 
 ## 一、元典智库
 

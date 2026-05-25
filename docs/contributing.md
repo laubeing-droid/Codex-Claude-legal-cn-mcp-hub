@@ -1,4 +1,10 @@
-﻿# 贡献指南
+﻿<!--
+version: 3.0.1
+module: docs
+status: active
+-->
+
+# 贡献指南
 
 ## 原则
 - 修改逻辑时 PowerShell + Bash 双平台同步

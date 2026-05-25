@@ -1,4 +1,10 @@
-﻿# 国家法规库 MCP Server
+﻿<!--
+version: 3.0.1
+module: mcp-hub
+status: active
+-->
+
+# 国家法规库 MCP Server
 
 基于国家法律法规数据库（flk.npc.gov.cn）的 MCP 封装，干净室实现。
 

@@ -1,4 +1,10 @@
-﻿# 故障排除
+﻿<!--
+version: 3.0.1
+module: docs
+status: active
+-->
+
+# 故障排除
 
 ## 连接器不工作
 1. 重启 MCP 客户端（必须）

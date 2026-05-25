@@ -1,4 +1,10 @@
-﻿# 案例库 MCP Server
+﻿<!--
+version: 3.0.1
+module: mcp-hub
+status: active
+-->
+
+# 案例库 MCP Server
 
 基于人民法院案例库（rmfyalk.court.gov.cn）的 MCP 封装，干净室实现。
 

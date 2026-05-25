@@ -1,4 +1,10 @@
-﻿# Codex-Claude-legal-cn-mcp-hub
+﻿<!--
+version: 3.0.1
+module: mcp-hub
+status: active
+-->
+
+# Codex-Claude-legal-cn-mcp-hub
 
 > 中国法律 MCP 连接器中心 — 自托管 Server + 配置管理，全端生效
 

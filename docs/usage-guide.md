@@ -1,4 +1,10 @@
-﻿# 使用指南
+﻿<!--
+version: 3.0.1
+module: docs
+status: active
+-->
+
+# 使用指南
 
 ## 安装
 
