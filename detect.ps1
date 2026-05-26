@@ -1,4 +1,4 @@
-﻿<#
+<#
 .SYNOPSIS
   检测Codex/Claude Code/Claude Desktop环境并返回配置路径
 .DESCRIPTION
@@ -49,6 +49,32 @@ function Get-EnvironmentInfo {
         McpSection = 'mcpServers'
     }
 
+    
+    # ---- WorkBuddy ----
+    $wbConfig = "$env:USERPROFILE\.workbuddy\config.json"
+    $wbInstalled = Test-Path "$env:USERPROFILE\.workbuddy"
+    $envs += @{
+        Name       = 'workbuddy'
+        Display    = 'WorkBuddy'
+        ConfigPath = $wbConfig
+        Format     = 'json'
+        Installed  = $wbInstalled
+        McpSection = 'mcpServers'
+    }
+
+    # ---- Trae ----
+    $traeHome = "$env:USERPROFILE\.trae"
+    if (-not (Test-Path $traeHome)) { $traeHome = "$env:APPDATA\Trae" }
+    $traeConfig = Join-Path $traeHome 'mcp.json'
+    $traeInstalled = Test-Path $traeHome
+    $envs += @{
+        Name       = 'trae'
+        Display    = 'Trae'
+        ConfigPath = $traeConfig
+        Format     = 'json'
+        Installed  = $traeInstalled
+        McpSection = 'mcpServers'
+    }
     return $envs
 }
 

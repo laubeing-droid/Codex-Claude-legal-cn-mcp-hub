@@ -1,4 +1,4 @@
-﻿<#
+<#
 .SYNOPSIS
   Codex-Claude-legal-cn-mcp-hub 安装脚本
 .DESCRIPTION
@@ -18,6 +18,24 @@ $PSScriptRoot = Split-Path -Parent $MyInvocation.MyCommand.Path
 . "$PSScriptRoot\connectors\pkulaw.ps1"
 . "$PSScriptRoot\connectors\feishu.ps1"
 
+# ─── [0] 环境校验 ─────────────────────────────────
+Write-Host "[0] 环境一致性校验..." -ForegroundColor Yellow
+$envCheckScript = Join-Path $PSScriptRoot "env-check.ps1"
+if (Test-Path $envCheckScript) {
+    & $envCheckScript
+    if ($LASTEXITCODE -ne 0) {
+        Write-Host ""
+        Write-Host "========================================" -ForegroundColor Red
+        Write-Host "  环境校验未通过。请修复上述阻断项后重新安装。" -ForegroundColor Red
+        Write-Host "  修复后运行: .\env-check.ps1" -ForegroundColor DarkGray
+        Write-Host "========================================" -ForegroundColor Red
+        exit 1
+    }
+    Write-Host "  [OK] 环境校验通过" -ForegroundColor Green
+} else {
+    Write-Host "  [!] env-check.ps1 未找到，跳过环境校验" -ForegroundColor DarkYellow
+}
+Write-Host ""
 Write-Host "=== Codex-Claude-legal-cn-mcp-hub 安装 ===" -ForegroundColor Green
 if ($Quick) { Write-Host "  模式: Quick（仅自托管）" -ForegroundColor DarkYellow }
 Write-Host ""
