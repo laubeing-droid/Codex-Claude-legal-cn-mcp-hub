@@ -1,4 +1,4 @@
-﻿<#
+<#
 .SYNOPSIS
   北大法宝连接器 — CLI + API + MCP 一键全开
 .DESCRIPTION
@@ -15,7 +15,7 @@ function Install-Pkulaw {
         [string]$Token = ''
     )
 
-    Write-Host "=== 北大法宝 — 法律检索平台（10+ 服务）===" -ForegroundColor Cyan
+    Write-Host "=== 北大法宝 — 法律检索平台（多个服务）===" -ForegroundColor Cyan
     Write-Host "  注册: https://mcp.pkulaw.com → 获取 Access Token" -ForegroundColor DarkGray
     Write-Host ""
 

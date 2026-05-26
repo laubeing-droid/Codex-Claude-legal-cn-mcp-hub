@@ -1,9 +1,9 @@
-﻿<#
+<#
 .SYNOPSIS
   元典智库连接器 — CLI + API + MCP 一键全开
 .DESCRIPTION
   一个 API Key 同时启用：
-    - MCP:   3 个 Streamable HTTP Server (法律法规/案例文书/企业信息)
+    - MCP:   多个 Streamable HTTP Server (法律法规/案例文书/企业信息)
     - API:   REST 端点 (https://open.chineselaw.com/open/{routeKey})
     - CLI:   API Key 写入本地凭证文件供 curl 等工具使用
 #>
@@ -15,7 +15,7 @@ function Install-Yuandian {
         [string]$ApiKey = ''
     )
 
-    Write-Host "=== 元典智库 — 中国法律检索（35+ 工具）===" -ForegroundColor Cyan
+    Write-Host "=== 元典智库 — 中国法律检索（多项工具）===" -ForegroundColor Cyan
     Write-Host "  注册: https://open.chineselaw.com → API 管理" -ForegroundColor DarkGray
     Write-Host ""
 
@@ -33,8 +33,8 @@ function Install-Yuandian {
     Write-Host "  API Key: $($ApiKey.Substring(0, [Math]::Min(8, $ApiKey.Length)))..." -ForegroundColor DarkGray
     Write-Host ""
 
-    # ── MCP — 3 个 Streamable HTTP Server ──
-    Write-Host "  [MCP] 注册 3 个 HTTP Server..." -ForegroundColor Yellow
+    # ── MCP — 多个 Streamable HTTP Server ──
+    Write-Host "  [MCP] 注册 多个 HTTP Server..." -ForegroundColor Yellow
     $servers = Get-YuandianHttpConfig -ApiKey $ApiKey
     foreach ($svc in $servers) {
         foreach ($e in $ActiveEnvs) {
@@ -60,5 +60,5 @@ function Install-Yuandian {
     Write-Host "    Header:   X-API-Key: $($ApiKey.Substring(0, [Math]::Min(8, $ApiKey.Length)))..." -ForegroundColor DarkGray
 
     Write-Host ""
-    Write-Host "  元典智库配置完成 — MCP(35+工具) + API + CLI 全开" -ForegroundColor Green
+    Write-Host "  元典智库配置完成 — MCP(多项工具) + API + CLI 全开" -ForegroundColor Green
 }
