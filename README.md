@@ -12,8 +12,8 @@ version: 3.1.0
 |--------|---------|------|------|
 | **国家法规库** | Python 自托管（干净室） | 法规检索 | 免费无鉴权 |
 | **案例库** | Python 自托管（干净室） | 案例检索 | 免费无鉴权 |
-| **元典智库** | Streamable HTTP MCP | 35+ 工具 | API Key |
-| **北大法宝** | HTTP MCP | 8+ 服务 | Access Token |
+| **元典智库** | Streamable HTTP MCP | 多项工具 | API Key |
+| **北大法宝** | HTTP MCP | 多项服务 | Access Token |
 | **飞书** | npm stdio | 文档/消息/日历 | App ID + Secret |
 
 ## 快速开始
